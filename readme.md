@@ -18,7 +18,7 @@ Paste any public GitHub repo URL and get an instant, AI-generated onboarding gui
 | Backend | Python, FastAPI |
 | Repo access | GitHub REST API |
 | AI analysis | Groq API |
-| Frontend | HTML, CSS, JavaScript (vanilla) |
+| Frontend | HTML, CSS, JavaScript |
 | Backend hosting | Render |
 | Frontend hosting | Netlify |
  
