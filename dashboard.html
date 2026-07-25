@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Codebase Onboarder</title>
+  <link rel="stylesheet" href="dashboard-style.css">
+</head>
+<body>
+  <h1>Codebase Onboarder</h1>
+  <input type="text" id="repoUrl" placeholder="Paste a GitHub repo URL" style="width: 400px; padding: 8px;">
+  <button id="analyzeBtn">Analyze</button>
+<div id="app"></div>
+
+  <script>
+  document.getElementById("analyzeBtn").addEventListener("click", () => {
+    const url = document.getElementById("repoUrl").value;
+    document.getElementById("app").innerHTML = "<p>Analyzing...</p>";
+
+    fetch(`http://127.0.0.1:8000/analyze?repo_url=${encodeURIComponent(url)}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("app").innerHTML = "";
+        renderSummary(data);
+        renderTechStack(data);
+        renderReadingOrder(data);
+        renderSetup(data);
+      });
+  });
+
+  function renderSummary(data) {
+    const app = document.getElementById("app");
+    app.innerHTML += `
+      <div class="card">
+        <h2>Summary</h2>
+        <p>${data.summary}</p>
+      </div>
+    `;
+  }
+  function renderTechStack(data) {
+    const app = document.getElementById("app");
+    let rows = "";
+    data.tech_stack.forEach(item => {
+      rows += `
+        <tr>
+          <td>${item.layer}</td>
+          <td>${item.technology}</td>
+          <td>${item.notes}</td>
+        </tr>
+      `;
+    });
+
+    app.innerHTML += `
+      <div class="card">
+        <h2>Tech Stack</h2>
+        <table>
+          <tr><th>Layer</th><th>Technology</th><th>Notes</th></tr>
+          ${rows}
+        </table>
+      </div>
+    `;
+  }
+
+  function renderReadingOrder(data) {
+  const app = document.getElementById("app");
+  let items = "";
+  data.reading_order.forEach(item => {
+    items += `
+      <li>
+        <strong>${item.order}. ${item.file}</strong>
+        <details>
+          <summary>Why it matters</summary>
+          <p>${item.why_it_matters}</p>
+        </details>
+      </li>
+    `;
+  });
+
+  app.innerHTML += `
+    <div class="card">
+      <h2>Reading Order</h2>
+      <ol>${items}</ol>
+    </div>
+  `;
+  }
+
+  function renderSetup(data) {
+  const app = document.getElementById("app");
+  let items = "";
+  data.setup_instructions.forEach(step => {
+    items += `<li>${step}</li>`;
+  });
+
+  app.innerHTML += `
+    <div class="card">
+      <h2>Setup Instructions</h2>
+      <ul>${items}</ul>
+    </div>
+  `;
+}
+ 
+
+</script>
+</body>
+</html>

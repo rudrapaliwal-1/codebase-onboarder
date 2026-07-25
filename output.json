@@ -1,0 +1,94 @@
+{
+  "summary": "Backstage-Core is a monorepo that powers a premium event experience platform. It includes a public-facing React app (a BookMyShow clone) where users can browse, book, and manage tickets for events, and an admin React panel for managing events, pricing, attendees, and settings. A Node.js/Express backend provides authentication, payment processing, media handling, and data persistence via MongoDB.",
+  "tech_stack": [
+    {
+      "layer": "Frontend",
+      "technology": "React (Vite for AdminPanel, Create\u2011React\u2011App for Events)",
+      "notes": "Component\u2011based UI, client\u2011side routing with react\u2011router\u2011dom, state via context providers."
+    },
+    {
+      "layer": "Frontend",
+      "technology": "Tailwind CSS & Headless UI",
+      "notes": "Utility\u2011first styling and accessible UI primitives for both apps."
+    },
+    {
+      "layer": "Frontend",
+      "technology": "Lucide\u2011react, Heroicons, React Icons",
+      "notes": "Icon libraries used throughout the UI."
+    },
+    {
+      "layer": "Frontend",
+      "technology": "Axios",
+      "notes": "HTTP client for API communication with the backend."
+    },
+    {
+      "layer": "Frontend",
+      "technology": "Google OAuth (react\u2011oauth/google)",
+      "notes": "Social login integration for the public app."
+    },
+    {
+      "layer": "Backend",
+      "technology": "Node.js + Express",
+      "notes": "REST API server handling authentication, payments, file uploads, and business logic."
+    },
+    {
+      "layer": "Backend",
+      "technology": "MongoDB via Mongoose",
+      "notes": "Document database for persisting users, events, tickets, etc."
+    },
+    {
+      "layer": "Backend",
+      "technology": "JSON Web Tokens (jsonwebtoken) & bcryptjs",
+      "notes": "Stateless authentication and password hashing."
+    },
+    {
+      "layer": "Backend",
+      "technology": "Razorpay",
+      "notes": "Payment gateway integration for ticket purchases."
+    },
+    {
+      "layer": "Backend",
+      "technology": "Cloudinary & busboy",
+      "notes": "Media upload handling for event images."
+    }
+  ],
+  "reading_order": [
+    {
+      "order": 1,
+      "file": "package.json (root)",
+      "why_it_matters": "Shows the workspace layout, scripts, and shared dependencies, giving a high\u2011level view of the monorepo structure."
+    },
+    {
+      "order": 2,
+      "file": "Events/src/index.js",
+      "why_it_matters": "Entry point of the public\u2011facing app; reveals how contexts, routing, and Google OAuth are wired together."
+    },
+    {
+      "order": 3,
+      "file": "AdminPanel/src/App.jsx",
+      "why_it_matters": "Core of the admin UI, demonstrates authentication flow, protected routes, layout composition, and error handling."
+    },
+    {
+      "order": 4,
+      "file": "local-server.js (backend entry, referenced in scripts)",
+      "why_it_matters": "Starts the Express server; understanding this file clarifies API endpoints, middleware, and integration with MongoDB."
+    },
+    {
+      "order": 5,
+      "file": "Events/src/context/DiscussionAuth.context.js (or similar)",
+      "why_it_matters": "Illustrates how user authentication state is managed in the public app."
+    }
+  ],
+  "setup_instructions": [
+    "1. Clone the repository: `git clone https://github.com/piyush588/Backstage-Core.git && cd Backstage-Core`.",
+    "2. Install all workspace dependencies: `npm install` (this runs for both Events and AdminPanel).",
+    "3. Create a `.env` file in the root (or copy `.env.example` if provided) with required keys such as `GOOGLE_CLIENT_ID`, `REACT_APP_API_KEY`, `JWT_SECRET`, `MONGODB_URI`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `CLOUDINARY_URL`, etc.",
+    "4. Start the backend API: `npm run dev:backend` (runs the Express server defined in `local-server.js`).",
+    "5. In a separate terminal, launch the public app: `npm start` (uses the Events workspace).",
+    "6. Optionally, launch the admin panel for management: `npm run dev:admin` (Vite dev server for AdminPanel).",
+    "7. Open the browsers:",
+    "   - Public app: http://localhost:3000 (or the port shown by CRA).",
+    "   - Admin panel: http://localhost:5173 (default Vite port).",
+    "8. To build the production bundles, run `npm run build` which compiles both front\u2011ends and places static assets in the `public` folder."
+  ]
+}
