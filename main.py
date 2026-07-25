@@ -91,9 +91,13 @@ def analyze(repo_url: str):
        print()
        
    combined_content = ""
+   max_total_chars = 8000
    for path, content in file_contents.items():
-     truncated = content[:3000]  # limit each file to ~3000 characters
-     combined_content += f"\n--- FILE: {path} ---\n{truncated}\n"
+    if len(combined_content) >= max_total_chars:
+        break
+    truncated = content[:1500]
+    combined_content += f"\n--- FILE: {path} ---\n{truncated}\n"
+   combined_content = combined_content[:max_total_chars]
    
    prompt = f"""
    You are analyzing a codebase to help a new developer understand it.

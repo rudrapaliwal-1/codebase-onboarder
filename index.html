@@ -38,12 +38,16 @@
   fetch(`https://codebase-onboarder-pvbj.onrender.com/analyze?repo_url=${encodeURIComponent(url)}`)
     .then(res => res.json())
     .then(data => {
-      clearInterval(orbitInterval);
-      document.getElementById("app").innerHTML = "";
-      renderSummary(data);
-      renderTechStack(data);
-      renderReadingOrder(data);
-      renderSetup(data);
+       clearInterval(orbitInterval);
+       document.getElementById("app").innerHTML = "";
+       if (data.error) {
+         document.getElementById("app").innerHTML = `<p style="color:red">${data.error}</p>`;
+         return;
+       }
+       renderSummary(data);
+       renderTechStack(data);
+       renderReadingOrder(data);
+       renderSetup(data);
     });
 });
 
