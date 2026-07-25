@@ -12,20 +12,38 @@
 <div id="app"></div>
 
   <script>
-  document.getElementById("analyzeBtn").addEventListener("click", () => {
-    const url = document.getElementById("repoUrl").value;
-    document.getElementById("app").innerHTML = "<p>Analyzing...</p>";
+  document.getElementById("app").innerHTML = `
+  <div class="orbit-loader">
+    <div class="orbit-container">
+      <div class="orbit-center"></div>
+      <div class="orbit orbit-1"><div class="particle"></div></div>
+      <div class="orbit orbit-2"><div class="particle"></div></div>
+      <div class="orbit orbit-3"><div class="particle"></div></div>
+    </div>
+    <p class="orbit-text" id="orbitText">Fetching repository...</p>
+  </div>
+`;
+
+  const orbitMessages = ["Fetching repository...", "Reading key files...", "Analyzing with AI...", "Almost done..."];
+  let orbitIndex = 0;
+  const orbitInterval = setInterval(() => {
+    orbitIndex = (orbitIndex + 1) % orbitMessages.length;
+    const el = document.getElementById("orbitText");
+    if (el) el.textContent = orbitMessages[orbitIndex];
+  }, 1800);
+
 
     fetch(`https://codebase-onboarder-pvbj.onrender.com/analyze?repo_url=${encodeURIComponent(url)}`)
       .then(res => res.json())
       .then(data => {
+        clearInterval(orbitInterval);
         document.getElementById("app").innerHTML = "";
         renderSummary(data);
         renderTechStack(data);
         renderReadingOrder(data);
         renderSetup(data);
       });
-  });
+  
 
   function renderSummary(data) {
     const app = document.getElementById("app");
