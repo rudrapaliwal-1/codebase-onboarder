@@ -16,7 +16,7 @@
     const url = document.getElementById("repoUrl").value;
     document.getElementById("app").innerHTML = "<p>Analyzing...</p>";
 
-    fetch(`http://127.0.0.1:8000/analyze?repo_url=${encodeURIComponent(url)}`)
+    fetch(`https://codebase-onboarder-pvbj.onrender.com/analyze?repo_url=${encodeURIComponent(url)}`)
       .then(res => res.json())
       .then(data => {
         document.getElementById("app").innerHTML = "";
