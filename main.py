@@ -27,7 +27,9 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 def analyze(repo_url: str):
    cleaned = repo_url.replace("https://github.com/", "")
    cleaned = cleaned.strip("/")
-   owner, repo = cleaned.split("/")
+   parts = cleaned.split("/")
+   owner = parts[0]
+   repo = parts[1]
    print("Owner:", owner)
    print("Repo:", repo)
    
