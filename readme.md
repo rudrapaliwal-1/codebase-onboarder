@@ -44,6 +44,6 @@ codebase-onboarder/
 ## Author
  
 **Rudra Narayan Paliwal**
-B.Tech, AI DS — USAR, GGSIPU
+B.Tech, AI DS — USAR, GGSIPU EDC
 [GitHub](https://github.com/rudrapaliwal-1) · [LinkedIn](https://linkedin.com/in/rudra-narayan-paliwal)
  
